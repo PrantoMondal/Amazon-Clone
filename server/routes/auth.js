@@ -16,10 +16,17 @@ authRouter.post('/api/signup', async (req, res) => {
         return res.status(400).json({ msg: "User with same email already exists!" });
 
     }
-    let user = new User({
-        email, password, name
+    try {
+        let user = new User({
+            email, password, name,
 
-    });
+        });
+        user = await user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({error:e.message});
+    }
+
     //Everything in javascript is an objects.
     //{
     // 'name': name,  'email':email,'password':password 
