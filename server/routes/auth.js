@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
+const bcryptjs = require('bcryptjs');
 
 
 const authRouter = express.Router();
@@ -10,15 +11,18 @@ const authRouter = express.Router();
 
 authRouter.post('/api/signup', async (req, res) => {
     const { name, email, password } = req.body;
-
+try {
     const existingUser = await User.findOne({ email });//findOne is a promice
     if (existingUser) {
-        return res.status(400).json({ msg: "User with same email already exists!" });
+        return res.status(400).json({
+            msg: "User with same email already exists!"
+        });
 
     }
-    try {
+    const hashedPassword = await bcryptjs.hash(password, 8);
+
         let user = new User({
-            email, password, name,
+            email, password: hashedPassword, name,
 
         });
         user = await user.save();
