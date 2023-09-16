@@ -71,10 +71,10 @@ if(!isVerified) return res.json(false);
 const user = await User.findById(jwt.verify.id);a
 
 }catch (error) {
-         res.status(500).json({msg: error.message});}
-
-
+         res.status(500).json({msg: error.message});
+         }
 });
-
+//get User Data
+authRouter.get('/',auth);
 
 module.exports = authRouter;

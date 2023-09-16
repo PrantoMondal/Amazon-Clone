@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-String uri = 'http://192.168.31.196:3000';
+String uri = 'http://111.168.31.111:3000';
 
-//111
+//192196
 // 192111168
 //3323
 // 31111196
